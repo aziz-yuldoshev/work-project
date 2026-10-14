@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buyurtma qo‘shish | CRM</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .order-card {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-icon {
+            width: 52px;
+            height: 52px;
+            background: #eef2ff;
+            color: #4f46e5;
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            color: #6b7280;
+        }
+
+        .customer-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .customer-box small {
+            color: #9ca3af;
+        }
+
+        .customer-name {
+            font-weight: bold;
+            font-size: 17px;
+            margin-top: 3px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 48px;
+            border-radius: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn-save {
+            border: none;
+            background: #4f46e5;
+            color: white;
+            border-radius: 10px;
+            padding: 12px 22px;
+            font-weight: 600;
+        }
+
+        .btn-save:hover {
+            background: #4338ca;
+        }
+
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #374151;
+            border-radius: 10px;
+            padding: 12px 22px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="order-card">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="header-icon">
+                <i class="bi bi-cart-plus-fill"></i>
+            </div>
+
+            <div>
+
+                <h1>
+                    Yangi buyurtma
+                </h1>
+
+                <p>
+                    Mijoz uchun yangi buyurtma yarating.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="customer-box">
+
+            <small>
+                Buyurtma beruvchi mijoz
+            </small>
+
+            <div class="customer-name">
+
+                <i class="bi bi-person-fill"></i>
+
+                {{ customer.name }}
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- TITLE -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Buyurtma nomi
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    placeholder="Masalan: iPhone 15 Pro"
+                    required
+                >
+
+            </div>
+
+
+            <!-- AMOUNT -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Summa
+                </label>
+
+                <div class="input-group">
+
+                    <input
+                        type="number"
+                        name="amount"
+                        class="form-control"
+                        placeholder="0"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                    <span class="input-group-text">
+                        so‘m
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                    required
+                >
+
+                    <option value="new">
+                        🆕 Yangi
+                    </option>
+
+                    <option value="processing">
+                        🔄 Jarayonda
+                    </option>
+
+                    <option value="completed">
+                        ✅ Tugallangan
+                    </option>
+
+                    <option value="cancelled">
+                        ❌ Bekor qilingan
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="btn-save">
+
+                    <i class="bi bi-check-lg"></i>
+
+                    Buyurtmani saqlash
+
+                </button>
+
+
+                <a
+                    href="{% url 'customer_detail' customer.id %}"
+                    class="btn-cancel">
+
+                    Bekor qilish
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

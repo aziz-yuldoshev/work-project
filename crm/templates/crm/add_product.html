@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mahsulot qo‘shish</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .form-card {
+            max-width: 750px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .page-title {
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #212529;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+        }
+
+        .image-upload-box {
+            border: 2px dashed #ced4da;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            background: #fafafa;
+            transition: 0.3s;
+        }
+
+        .image-upload-box:hover {
+            border-color: #0d6efd;
+            background: #f8fbff;
+        }
+
+        .image-upload-icon {
+            font-size: 45px;
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+
+        #imagePreview {
+            display: none;
+            max-width: 100%;
+            width: 260px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px auto 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .btn {
+            border-radius: 10px;
+            padding: 11px 20px;
+            font-weight: 600;
+        }
+
+        .required-star {
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <div class="form-card">
+
+        <h2 class="page-title">
+            <i class="bi bi-box-seam"></i>
+            Yangi mahsulot qo‘shish
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- MAHSULOT NOMI -->
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Mahsulot nomi
+                    <span class="required-star">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Masalan: iPhone 15"
+                    required
+                >
+
+            </div>
+
+
+            <!-- TAVSIF -->
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Tavsif
+                </label>
+
+                <textarea
+                    name="description"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Mahsulot haqida qisqacha ma'lumot..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- NARX -->
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Narx
+                    <span class="required-star">*</span>
+                </label>
+
+                <input
+                    type="number"
+                    name="price"
+                    class="form-control"
+                    placeholder="Masalan: 2500000"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <!-- QOLDIQ -->
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Qoldiq
+                    <span class="required-star">*</span>
+                </label>
+
+                <input
+                    type="number"
+                    name="quantity"
+                    class="form-control"
+                    placeholder="Masalan: 25"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <!-- KATEGORIYA -->
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Kategoriya
+                </label>
+
+                <input
+                    type="text"
+                    name="category"
+                    class="form-control"
+                    placeholder="Masalan: Elektronika"
+                >
+
+            </div>
+
+
+            <!-- RASM -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    <i class="bi bi-image"></i>
+                    Mahsulot rasmi
+                </label>
+
+                <div class="image-upload-box">
+
+                    <div class="image-upload-icon">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                    </div>
+
+                    <h5>Mahsulot rasmini tanlang</h5>
+
+                    <p class="text-muted mb-3">
+                        JPG, PNG yoki WEBP formatdagi rasm
+                    </p>
+
+                    <input
+                        type="file"
+                        name="image"
+                        id="imageInput"
+                        class="form-control"
+                        accept="image/*"
+                    >
+
+                    <img
+                        id="imagePreview"
+                        src="#"
+                        alt="Rasm preview"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option value="active">
+                        Mavjud
+                    </option>
+
+                    <option value="inactive">
+                        Nofaol
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="d-flex justify-content-between gap-2">
+
+                <a
+                    href="{% url 'products' %}"
+                    class="btn btn-secondary"
+                >
+                    <i class="bi bi-arrow-left"></i>
+                    Bekor qilish
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-check-circle"></i>
+                    Saqlash
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+
+    imageInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+
+                imagePreview.src = event.target.result;
+                imagePreview.style.display = "block";
+
+            };
+
+            reader.readAsDataURL(file);
+
+        } else {
+
+            imagePreview.src = "#";
+            imagePreview.style.display = "none";
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

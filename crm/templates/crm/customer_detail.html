@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ customer.name }} | Customer 360°
+    </title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            background: #f5f7fb;
+
+            font-family: Arial, sans-serif;
+
+            color: #1f2937;
+
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+
+            height: 100vh;
+
+            background: #111827;
+
+            padding: 25px 15px;
+
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            padding: 10px 15px 30px;
+
+        }
+
+
+        .logo span {
+
+            color: #6366f1;
+
+        }
+
+
+        .menu-title {
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            padding: 10px 15px;
+
+        }
+
+
+        .sidebar a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            color: #9ca3af;
+
+            text-decoration: none;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .sidebar a:hover {
+
+            background: #1f2937;
+
+            color: white;
+
+        }
+
+
+        .sidebar a.active {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+        }
+
+
+        .topbar {
+
+            height: 75px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+        }
+
+
+        .topbar-title {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .notification {
+
+            width: 40px;
+
+            height: 40px;
+
+            background: #f3f4f6;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .avatar {
+
+            width: 42px;
+
+            height: 42px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+
+            padding: 35px;
+
+        }
+
+
+        .back-btn {
+
+            color: #6b7280;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .back-btn:hover {
+
+            color: #4f46e5;
+
+        }
+
+
+        /* =========================
+           CUSTOMER HEADER
+        ========================= */
+
+        .customer-header {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .customer-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .customer-avatar {
+
+            width: 75px;
+
+            height: 75px;
+
+            border-radius: 18px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+
+        .customer-info h1 {
+
+            margin: 0 0 7px;
+
+            font-size: 27px;
+
+        }
+
+
+        .customer-contact {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+        }
+
+
+        .customer-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .btn-custom {
+
+            border-radius: 9px;
+
+            padding: 10px 15px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .btn-edit {
+
+            background: #eef2ff;
+
+            color: #4f46e5;
+
+        }
+
+
+        .btn-order {
+
+            background: #4f46e5;
+
+            color: white;
+
+        }
+
+
+        .btn-order:hover {
+
+            background: #4338ca;
+
+            color: white;
+
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+        }
+
+
+        .stat-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .stat-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 11px;
+
+            background: #eef2ff;
+
+            color: #4f46e5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+
+        }
+
+
+        .stat-label {
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .stat-value {
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            margin-top: 4px;
+
+        }
+
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns: 1.6fr 1fr;
+
+            gap: 22px;
+
+        }
+
+
+        .card-box {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .card-title {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .card-title i {
+
+            margin-right: 7px;
+
+            color: #4f46e5;
+
+        }
+
+
+        /* =========================
+           ORDERS
+        ========================= */
+
+        .order-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #f1f5f9;
+
+        }
+
+
+        .order-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .order-title a {
+            color: #1f2937;
+            transition: 0.2s ease;
+        }
+
+        .order-title a:hover {
+            color: #4f46e5;
+        }
+
+
+        .order-date {
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+        }
+
+
+        .order-amount {
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .badge-status {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .badge-new {
+
+            background: #dbeafe;
+
+            color: #2563eb;
+
+        }
+
+
+        .badge-processing {
+
+            background: #fef3c7;
+
+            color: #d97706;
+
+        }
+
+
+        .badge-completed {
+
+            background: #dcfce7;
+
+            color: #16a34a;
+
+        }
+
+
+        .badge-cancelled {
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+        }
+
+
+        /* =========================
+           ACTIVITY
+        ========================= */
+
+        .timeline {
+
+            position: relative;
+
+            padding-left: 30px;
+
+        }
+
+
+        .timeline::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 8px;
+
+            top: 5px;
+
+            bottom: 5px;
+
+            width: 2px;
+
+            background: #e5e7eb;
+
+        }
+
+
+        .timeline-item {
+
+            position: relative;
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .timeline-item::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: -27px;
+
+            top: 3px;
+
+            width: 12px;
+
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: #4f46e5;
+
+            border: 3px solid #eef2ff;
+
+        }
+
+
+        .timeline-title {
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .timeline-title i {
+
+            color: #4f46e5;
+
+            margin-right: 5px;
+
+        }
+
+
+        .timeline-date {
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* =========================
+           STATUS OVERVIEW
+        ========================= */
+
+        .status-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .status-name {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        .status-dot {
+
+            width: 9px;
+
+            height: 9px;
+
+            border-radius: 50%;
+
+        }
+
+
+        .dot-new {
+
+            background: #2563eb;
+
+        }
+
+
+        .dot-processing {
+
+            background: #d97706;
+
+        }
+
+
+        .dot-completed {
+
+            background: #16a34a;
+
+        }
+
+
+        .dot-cancelled {
+
+            background: #dc2626;
+
+        }
+
+
+        .status-count {
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 35px 10px;
+
+            color: #9ca3af;
+
+        }
+
+
+        .empty i {
+
+            font-size: 35px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .dashboard-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                display: none;
+
+            }
+
+            .main {
+
+                margin-left: 0;
+
+            }
+
+            .content {
+
+                padding: 18px;
+
+            }
+
+            .customer-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+
+            }
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+            .customer-orders-table {
+                width: 100%;
+            }
+
+            .table th {
+                color: #6b7280;
+                font-size: 12px;
+                font-weight: 600;
+                border-bottom: 1px solid #e5e7eb;
+                white-space: nowrap;
+            }
+
+            .table td {
+                border-bottom: 1px solid #f1f5f9;
+                padding: 15px 10px;
+            }
+
+            .table tbody tr:hover {
+                background: #f8fafc;
+            }
+
+            .table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     SIDEBAR
+================================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        CRM<span>.</span>
+    </div>
+
+
+    <div class="menu-title">
+        Asosiy
+    </div>
+
+
+    <a href="/">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+    </a>
+
+
+    <a href="{% url 'customers' %}" class="active">
+        <i class="bi bi-people-fill"></i>
+        <span>Mijozlar</span>
+    </a>
+
+
+    <a href="#">
+        <i class="bi bi-cart-fill"></i>
+        <span>Buyurtmalar</span>
+    </a>
+
+
+    <a href="#">
+        <i class="bi bi-box-seam-fill"></i>
+        <span>Mahsulotlar</span>
+    </a>
+
+
+    <div class="menu-title">
+        Boshqaruv
+    </div>
+
+
+    <a href="#">
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Hisobotlar</span>
+    </a>
+
+
+    <a href="#">
+        <i class="bi bi-gear-fill"></i>
+        <span>Sozlamalar</span>
+    </a>
+
+</div>
+
+
+<!-- =================================
+     MAIN
+================================= -->
+
+<div class="main">
+
+
+    <div class="topbar">
+
+        <div class="topbar-title">
+            Customer 360°
+        </div>
+
+
+        <div class="user-area">
+
+            <div class="notification">
+
+                <i class="bi bi-bell"></i>
+
+            </div>
+
+
+            <div class="avatar">
+
+                {{ customer.name|first|upper }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- BACK -->
+
+        <a
+                href="{% url 'customers' %}"
+                class="back-btn">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Mijozlarga qaytish
+
+        </a>
+
+
+        <!-- CUSTOMER HEADER -->
+
+        <div class="customer-header">
+
+
+            <div class="customer-info">
+
+
+                <div class="customer-avatar">
+
+                    {{ customer.name|first|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        {{ customer.name }}
+                    </h1>
+
+
+                    <div class="customer-contact">
+
+                        <i class="bi bi-telephone"></i>
+
+                        {{ customer.phone }}
+
+
+                        {% if customer.email %}
+
+                        &nbsp;&nbsp; • &nbsp;&nbsp;
+
+                        <i class="bi bi-envelope"></i>
+
+                        {{ customer.email }}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="customer-actions">
+
+
+                <a
+                        href="{% url 'edit_customer' customer.id %}"
+                        class="btn-custom btn-edit">
+
+                    <i class="bi bi-pencil"></i>
+
+                    Tahrirlash
+
+                </a>
+
+
+                <a
+                        href="{% url 'add_order' customer.id %}"
+                        class="btn-custom btn-order">
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Yangi buyurtma
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             STATISTICS
+        ================================= -->
+
+        <div class="stats-grid">
+
+
+            <!-- ORDERS -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div>
+                        <div class="stat-label">
+                            Jami buyurtmalar
+                        </div>
+
+                        <div class="stat-value">
+                            {{ total_orders }}
+                        </div>
+                    </div>
+
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-cart-check"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SPENT -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Jami xarajat
+                        </div>
+
+                        <div class="stat-value">
+
+                            {{ total_spent|floatformat:2 }}
+
+                            <small>so‘m</small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-wallet2"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVERAGE -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <div class="stat-label">
+                            O‘rtacha buyurtma
+                        </div>
+
+                        <div class="stat-value">
+
+                            {{ average_order|floatformat:2 }}
+
+                            <small>so‘m</small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-graph-up"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LAST ORDER -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <div class="stat-label">
+                            Oxirgi buyurtma
+                        </div>
+
+                        <div class="stat-value">
+
+                            {% if last_order %}
+
+                            {{ last_order.created_at|date:"d.m.Y" }}
+
+                            {% else %}
+
+                            —
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             MAIN GRID
+        ================================= -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- LEFT -->
+
+            <div>
+
+
+                <!-- ORDERS -->
+
+                <!-- ORDERS -->
+
+                <div class="card-box">
+
+                    <div class="card-title">
+
+        <span>
+            <i class="bi bi-cart-check"></i>
+            Buyurtmalar
+        </span>
+
+                        <span style="
+            color:#9ca3af;
+            font-size:12px;
+        ">
+            {{ total_orders }} ta
+        </span>
+
+                    </div>
+
+
+                    {% if orders %}
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle mb-0">
+
+                            <thead>
+
+                            <tr>
+                                <th>Buyurtma</th>
+                                <th>Summa</th>
+                                <th>Status</th>
+                                <th>Sana</th>
+                                <th style="text-align:right;">Action</th>
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            {% for order in orders %}
+
+                            <tr>
+
+                                <!-- BUYURTMA -->
+                                <td>
+
+                                    <div style="
+                            font-weight:600;
+                            color:#1f2937;
+                        ">
+                                        {{ order.title }}
+                                    </div>
+
+                                    <div style="
+                            font-size:12px;
+                            color:#9ca3af;
+                            margin-top:3px;
+                        ">
+                                        #{{ order.id }}
+                                    </div>
+
+                                </td>
+
+
+                                <!-- SUMMA -->
+                                <td>
+
+                                    <strong>
+                                        {{ order.amount|floatformat:2 }}
+                                    </strong>
+
+                                    <span style="
+                            font-size:12px;
+                            color:#9ca3af;
+                        ">
+                            so‘m
+                        </span>
+
+                                </td>
+
+
+                                <!-- STATUS -->
+                                <td>
+
+                                    {% if order.status == 'new' %}
+
+                                    <span class="badge-status badge-new">
+                                Yangi
+                            </span>
+
+                                    {% elif order.status == 'processing' %}
+
+                                    <span class="badge-status badge-processing">
+                                Jarayonda
+                            </span>
+
+                                    {% elif order.status == 'completed' %}
+
+                                    <span class="badge-status badge-completed">
+                                Tugallangan
+                            </span>
+
+                                    {% elif order.status == 'cancelled' %}
+
+                                    <span class="badge-status badge-cancelled">
+                                Bekor qilingan
+                            </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- SANA -->
+                                <td>
+
+                        <span style="
+                            color:#6b7280;
+                            font-size:13px;
+                        ">
+                            {{ order.created_at|date:"d.m.Y" }}
+                        </span>
+
+                                    <br>
+
+                                    <span style="
+                            color:#9ca3af;
+                            font-size:11px;
+                        ">
+                            {{ order.created_at|date:"H:i" }}
+                        </span>
+
+                                </td>
+
+
+                                <!-- ACTION -->
+                                <td style="text-align:right;">
+
+                                    <a
+                                            href="{% url 'order_detail' order.id %}"
+                                            class="btn btn-sm btn-light"
+                                            title="Buyurtmani ko‘rish"
+                                    >
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    <a
+                                            href="{% url 'edit_order' order.id %}"
+                                            class="btn btn-sm btn-light"
+                                            title="Tahrirlash"
+                                    >
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="empty">
+
+                        <i class="bi bi-cart-x"></i>
+
+                        <p>
+                            Hozircha buyurtmalar yo‘q.
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+                <!-- ACTIVITY -->
+
+                <div class="card-box">
+
+
+                    <div class="card-title">
+
+                        <span>
+
+                            <i class="bi bi-activity"></i>
+
+                            Activity Timeline
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="timeline">
+
+
+                        {% for activity in activities %}
+
+
+                        <div class="timeline-item">
+
+
+                            <div class="timeline-title">
+
+
+                                {% if activity.activity_type == 'customer_created' %}
+
+                                <i class="bi bi-person-plus"></i>
+
+                                {% elif activity.activity_type == 'order_created' %}
+
+                                <i class="bi bi-cart-plus"></i>
+
+                                {% elif activity.activity_type == 'order_completed' %}
+
+                                <i class="bi bi-check-circle"></i>
+
+                                {% elif activity.activity_type == 'order_cancelled' %}
+
+                                <i class="bi bi-x-circle"></i>
+
+                                {% endif %}
+
+
+                                {{ activity.get_activity_type_display }}
+
+                            </div>
+
+
+                            <div class="timeline-date">
+
+                                {{ activity.description }}
+
+                                <br>
+
+                                {{ activity.created_at|date:"d.m.Y H:i" }}
+
+                            </div>
+
+                        </div>
+
+
+                        {% empty %}
+
+
+                        <div class="empty">
+
+                            <i class="bi bi-clock-history"></i>
+
+                            <p>
+                                Hali activity mavjud emas.
+                            </p>
+
+                        </div>
+
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div>
+
+
+                <!-- ORDER STATUS -->
+
+                <div class="card-box">
+
+
+                    <div class="card-title">
+
+                        <span>
+
+                            <i class="bi bi-pie-chart"></i>
+
+                            Buyurtma statuslari
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-new"></span>
+
+                            Yangi
+
+                        </div>
+
+
+                        <div class="status-count">
+
+                            {{ new_orders }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-processing"></span>
+
+                            Jarayonda
+
+                        </div>
+
+
+                        <div class="status-count">
+
+                            {{ processing_orders }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-completed"></span>
+
+                            Tugallangan
+
+                        </div>
+
+
+                        <div class="status-count">
+
+                            {{ completed_orders }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <div class="status-name">
+
+                            <span class="status-dot dot-cancelled"></span>
+
+                            Bekor qilingan
+
+                        </div>
+
+
+                        <div class="status-count">
+
+                            {{ cancelled_orders }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CUSTOMER INFO -->
+
+                <div class="card-box">
+
+
+                    <div class="card-title">
+
+                        <span>
+
+                            <i class="bi bi-person-vcard"></i>
+
+                            Mijoz ma'lumotlari
+
+                        </span>
+
+                    </div>
+
+
+                    <p>
+
+                        <strong>Ism:</strong><br>
+
+                        {{ customer.name }}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>Telefon:</strong><br>
+
+                        {{ customer.phone }}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>Email:</strong><br>
+
+                        {{ customer.email|default:"—" }}
+
+                    </p>
+
+                    <p>
+                        <strong>Manzil:</strong><br>
+                        {{ customer.address|default:"—" }}
+                    </p>
+
+
+                    <p>
+
+                        <strong>Status:</strong><br>
+
+                        {{ customer.get_status_display }}
+
+                    </p>
+
+
+                    <p class="mb-0">
+
+                        <strong>Ro‘yxatdan o‘tgan:</strong><br>
+
+                        {{ customer.created_at|date:"d.m.Y H:i" }}
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
